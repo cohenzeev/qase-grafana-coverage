@@ -240,21 +240,19 @@ def build_dashboard(stats_by_project: dict, generated_at: str) -> dict:
 
     panels = [banner_panel(1, generated_at, {"h": 3, "w": 24, "x": 0, "y": 0})]
 
-    pid = 10
-    y = 3
+    pid = 11
+    x = 0
     for code, title in PROJECT_ROWS:
         s = stats_by_project[code]
-        panels.append(stats_panel(pid, f"{title} ({code})", s,
-                                  {"h": 7, "w": 16, "x": 0, "y": y}))
-        panels.append(pie_panel(pid + 1, f"{code} — Automation breakdown", s,
-                                {"h": 7, "w": 8, "x": 16, "y": y}))
+        panels.append(pie_panel(pid, f"{title} ({code}) — Automation breakdown", s,
+                                {"h": 10, "w": 8, "x": x, "y": 3}))
         pid += 10
-        y += 7
+        x += 8
 
     panels.append(pie_panel(40, "Combined — Automation breakdown", combined,
-                            {"h": 10, "w": 10, "x": 0, "y": y}))
+                            {"h": 10, "w": 10, "x": 0, "y": 13}))
     panels.append(comparison_table_panel(41, "Per-project comparison", stats_by_project,
-                                         {"h": 10, "w": 14, "x": 10, "y": y}))
+                                         {"h": 10, "w": 14, "x": 10, "y": 13}))
 
     return {
         "title": "Qase Automation Coverage — IAO, AL & IAI",
