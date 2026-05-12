@@ -18,7 +18,7 @@
   },
   "snapshot": {
     "name": "Qase Automation Coverage Snapshot",
-    "timestamp": "2026-05-12 14:11 UTC",
+    "timestamp": "2026-05-12 18:16 UTC",
     "originalUrl": "",
     "expires": "0001-01-01T00:00:00Z",
     "external": false,
@@ -38,7 +38,7 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "# Qase Automation Coverage \u2014 IAO, AL & IAI\n\nSnapshot generated **2026-05-12 14:11 UTC** \u00b7 re-run `generate_dashboard.py` and re-import this dashboard to refresh."
+        "content": "# Qase Automation Coverage \u2014 IAO, AL & IAI\n\nSnapshot generated **2026-05-12 18:16 UTC** \u00b7 re-run `generate_dashboard.py` and re-import this dashboard to refresh."
       }
     },
     {
@@ -319,7 +319,7 @@
               "values": [
                 133,
                 104,
-                5975
+                7050
               ]
             }
           ]
@@ -441,7 +441,7 @@
               "values": [
                 854,
                 622,
-                14268
+                15343
               ]
             }
           ]
@@ -563,7 +563,7 @@
               "values": [
                 9182,
                 350,
-                6212
+                7287
               ]
             },
             {
@@ -590,7 +590,7 @@
               "values": [
                 8085,
                 208,
-                5975
+                7050
               ]
             },
             {
@@ -599,7 +599,7 @@
               "values": [
                 7.61,
                 6.29,
-                2.14
+                1.83
               ]
             }
           ]

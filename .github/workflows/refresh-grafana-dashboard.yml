@@ -1,0 +1,66 @@
+# Daily refresh of the Qase Automation Coverage Grafana dashboard.
+# Pulls fresh counts from Qase, regenerates dashboard.json, and pushes it
+# to Grafana via the dashboards API (overwrite=true). The dashboard lives
+# in the Release folder: https://grafana.infra.us-west-2.int.isappcloud.com
+name: Refresh Qase Grafana dashboard
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 06:00 UTC
+    - cron: "0 6 * * *"
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      GRAFANA_URL: https://grafana.infra.us-west-2.int.isappcloud.com
+      # "Release" folder UID — verified via Grafana API search
+      GRAFANA_FOLDER_UID: bfam7dqlep6o0c
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate dashboard.json from Qase
+        env:
+          QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
+        run: python generate_dashboard.py
+
+      - name: Push dashboard to Grafana (overwrite)
+        env:
+          GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          payload=$(jq -n \
+            --slurpfile d dashboard.json \
+            --arg folder "$GRAFANA_FOLDER_UID" \
+            --arg msg "Daily Qase coverage refresh ($(date -u +'%Y-%m-%d %H:%M UTC'))" \
+            '{dashboard: $d[0], folderUid: $folder, overwrite: true, message: $msg}')
+
+          http_status=$(curl -sS -o response.json -w "%{http_code}" \
+            -X POST "$GRAFANA_URL/api/dashboards/db" \
+            -H "Authorization: Bearer $GRAFANA_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "$payload")
+
+          echo "Grafana responded with HTTP $http_status"
+          cat response.json
+          echo
+
+          if [ "$http_status" -lt 200 ] || [ "$http_status" -ge 300 ]; then
+            echo "::error::Grafana dashboard push failed (HTTP $http_status)"
+            exit 1
+          fi
+
+          dashboard_url=$(jq -r '.url // empty' response.json)
+          if [ -n "$dashboard_url" ]; then
+            echo "Updated dashboard: ${GRAFANA_URL}${dashboard_url}"
+          fi
