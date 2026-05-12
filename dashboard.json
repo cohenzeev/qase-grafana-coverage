@@ -18,7 +18,7 @@
   },
   "snapshot": {
     "name": "Qase Automation Coverage Snapshot",
-    "timestamp": "2026-05-12 13:55 UTC",
+    "timestamp": "2026-05-12 14:11 UTC",
     "originalUrl": "",
     "expires": "0001-01-01T00:00:00Z",
     "external": false,
@@ -38,164 +38,17 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "# Qase Automation Coverage \u2014 IAO, AL & IAI\n\nSnapshot generated **2026-05-12 13:55 UTC** \u00b7 re-run `generate_dashboard.py` and re-import this dashboard to refresh."
-      }
-    },
-    {
-      "id": 10,
-      "type": "stat",
-      "title": "[iS] Aura - oobe (IAO)",
-      "gridPos": {
-        "h": 7,
-        "w": 16,
-        "x": 0,
-        "y": 3
-      },
-      "datasource": null,
-      "targets": [
-        {
-          "refId": "A"
-        }
-      ],
-      "snapshotData": [
-        {
-          "fields": [
-            {
-              "name": "Total",
-              "type": "number",
-              "values": [
-                9182
-              ]
-            },
-            {
-              "name": "Automated",
-              "type": "number",
-              "values": [
-                699
-              ]
-            },
-            {
-              "name": "To be automated",
-              "type": "number",
-              "values": [
-                398
-              ]
-            },
-            {
-              "name": "Manual",
-              "type": "number",
-              "values": [
-                8085
-              ]
-            },
-            {
-              "name": "Coverage %",
-              "type": "number",
-              "values": [
-                7.61
-              ]
-            }
-          ]
-        }
-      ],
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": ""
-        },
-        "orientation": "horizontal",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "blue"
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Automated"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "green"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "To be automated"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "yellow"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Manual"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "red"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Coverage %"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "blue"
-                }
-              },
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
-          }
-        ]
+        "content": "# Qase Automation Coverage \u2014 IAO, AL & IAI\n\nSnapshot generated **2026-05-12 14:11 UTC** \u00b7 re-run `generate_dashboard.py` and re-import this dashboard to refresh."
       }
     },
     {
       "id": 11,
       "type": "piechart",
-      "title": "IAO \u2014 Automation breakdown",
+      "title": "[iS] Aura - oobe (IAO) \u2014 Automation breakdown",
       "gridPos": {
-        "h": 7,
+        "h": 10,
         "w": 8,
-        "x": 16,
+        "x": 0,
         "y": 3
       },
       "datasource": null,
@@ -311,161 +164,14 @@
       }
     },
     {
-      "id": 20,
-      "type": "stat",
-      "title": "Aura - Laika (AL)",
-      "gridPos": {
-        "h": 7,
-        "w": 16,
-        "x": 0,
-        "y": 10
-      },
-      "datasource": null,
-      "targets": [
-        {
-          "refId": "A"
-        }
-      ],
-      "snapshotData": [
-        {
-          "fields": [
-            {
-              "name": "Total",
-              "type": "number",
-              "values": [
-                350
-              ]
-            },
-            {
-              "name": "Automated",
-              "type": "number",
-              "values": [
-                22
-              ]
-            },
-            {
-              "name": "To be automated",
-              "type": "number",
-              "values": [
-                120
-              ]
-            },
-            {
-              "name": "Manual",
-              "type": "number",
-              "values": [
-                208
-              ]
-            },
-            {
-              "name": "Coverage %",
-              "type": "number",
-              "values": [
-                6.29
-              ]
-            }
-          ]
-        }
-      ],
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": ""
-        },
-        "orientation": "horizontal",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "blue"
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Automated"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "green"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "To be automated"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "yellow"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Manual"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "red"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Coverage %"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "blue"
-                }
-              },
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "id": 21,
       "type": "piechart",
-      "title": "AL \u2014 Automation breakdown",
+      "title": "Aura - Laika (AL) \u2014 Automation breakdown",
       "gridPos": {
-        "h": 7,
+        "h": 10,
         "w": 8,
-        "x": 16,
-        "y": 10
+        "x": 8,
+        "y": 3
       },
       "datasource": null,
       "targets": [
@@ -580,161 +286,14 @@
       }
     },
     {
-      "id": 30,
-      "type": "stat",
-      "title": "IAI (IAI)",
-      "gridPos": {
-        "h": 7,
-        "w": 16,
-        "x": 0,
-        "y": 17
-      },
-      "datasource": null,
-      "targets": [
-        {
-          "refId": "A"
-        }
-      ],
-      "snapshotData": [
-        {
-          "fields": [
-            {
-              "name": "Total",
-              "type": "number",
-              "values": [
-                6110
-              ]
-            },
-            {
-              "name": "Automated",
-              "type": "number",
-              "values": [
-                133
-              ]
-            },
-            {
-              "name": "To be automated",
-              "type": "number",
-              "values": [
-                104
-              ]
-            },
-            {
-              "name": "Manual",
-              "type": "number",
-              "values": [
-                5873
-              ]
-            },
-            {
-              "name": "Coverage %",
-              "type": "number",
-              "values": [
-                2.18
-              ]
-            }
-          ]
-        }
-      ],
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": ""
-        },
-        "orientation": "horizontal",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "blue"
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Automated"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "green"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "To be automated"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "yellow"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Manual"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "red"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Coverage %"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "fixed",
-                  "fixedColor": "blue"
-                }
-              },
-              {
-                "id": "unit",
-                "value": "percent"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "id": 31,
       "type": "piechart",
-      "title": "IAI \u2014 Automation breakdown",
+      "title": "IAI (IAI) \u2014 Automation breakdown",
       "gridPos": {
-        "h": 7,
+        "h": 10,
         "w": 8,
         "x": 16,
-        "y": 17
+        "y": 3
       },
       "datasource": null,
       "targets": [
@@ -760,7 +319,7 @@
               "values": [
                 133,
                 104,
-                5873
+                5975
               ]
             }
           ]
@@ -856,7 +415,7 @@
         "h": 10,
         "w": 10,
         "x": 0,
-        "y": 24
+        "y": 13
       },
       "datasource": null,
       "targets": [
@@ -882,7 +441,7 @@
               "values": [
                 854,
                 622,
-                14166
+                14268
               ]
             }
           ]
@@ -978,7 +537,7 @@
         "h": 10,
         "w": 14,
         "x": 10,
-        "y": 24
+        "y": 13
       },
       "datasource": null,
       "targets": [
@@ -1004,7 +563,7 @@
               "values": [
                 9182,
                 350,
-                6110
+                6212
               ]
             },
             {
@@ -1031,7 +590,7 @@
               "values": [
                 8085,
                 208,
-                5873
+                5975
               ]
             },
             {
@@ -1040,7 +599,7 @@
               "values": [
                 7.61,
                 6.29,
-                2.18
+                2.14
               ]
             }
           ]
