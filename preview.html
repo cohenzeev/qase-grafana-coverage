@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qase Coverage Preview</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0b0f14;
+      color: #e8edf2;
+      font-family: -apple-system, system-ui, sans-serif;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .full {
+      grid-column: 1 / -1;
+    }
+    code {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+    @media (max-width: 980px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .full {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="full"><style>
+  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }
+  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }
+  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }
+  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }
+  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }
+  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
+  .qase-tile.automated .value { color: #56a64b; }
+  .qase-tile.to-be-automated .value { color: #f2cc0c; }
+  .qase-tile.manual .value { color: #e02f44; }
+  .qase-tile.total .value { color: #5794f2; }
+  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
+  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
+  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
+  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
+  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+  .qase-pie {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .qase-pie::after {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: 50%;
+    background: #0b0f14;
+  }
+  .qase-pie-label {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 76px;
+  }
+  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }
+  .qase-banner h1 { margin: 0; font-size: 26px; }
+  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }
+  .qase-link { color: #6e9fff; text-decoration: none; }
+  .qase-link:hover { text-decoration: underline; }
+</style>
+
+<div class="qase-banner">
+  <h1>Qase Automation Coverage — IAO, AL &amp; IAI</h1>
+  <div class="meta">
+    Snapshot generated <b>2026-05-12 07:13 UTC</b> ·
+    Re-run <code>generate_dashboard.py</code> and re-import this dashboard to refresh.
+  </div>
+</div></div>
+    <div><style>
+  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }
+  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }
+  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }
+  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }
+  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }
+  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
+  .qase-tile.automated .value { color: #56a64b; }
+  .qase-tile.to-be-automated .value { color: #f2cc0c; }
+  .qase-tile.manual .value { color: #e02f44; }
+  .qase-tile.total .value { color: #5794f2; }
+  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
+  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
+  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
+  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
+  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+  .qase-pie {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .qase-pie::after {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: 50%;
+    background: #0b0f14;
+  }
+  .qase-pie-label {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 76px;
+  }
+  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }
+  .qase-banner h1 { margin: 0; font-size: 26px; }
+  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }
+  .qase-link { color: #6e9fff; text-decoration: none; }
+  .qase-link:hover { text-decoration: underline; }
+</style>
+
+<div class="qase-card">
+  <h2>[iS] Aura - oobe <span style="color:#8a929d;font-weight:400;font-size:14px;">(<a class="qase-link" href="https://app.qase.io/project/IAO" target="_blank">IAO</a>)</span></h2>
+  <div class="sub">Automation status across all test cases</div>
+  <div class="qase-grid">
+    <div class="qase-tile total"><div class="label">Total</div><div class="value">9,178</div></div>
+    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">699</div></div>
+    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">398</div></div>
+    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">8,081</div></div>
+  </div>
+  <div class="qase-coverage-label">Automation coverage (699 / 9,178)</div>
+  <div class="qase-coverage-wrap">
+    <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 7.62%, rgba(255,255,255,0.09) 7.62% 100%);"></div>
+    <div class="qase-pie-label" style="color:#e02f44;">7.62%</div>
+  </div>
+</div></div>
+    <div><style>
+  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }
+  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }
+  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }
+  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }
+  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }
+  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
+  .qase-tile.automated .value { color: #56a64b; }
+  .qase-tile.to-be-automated .value { color: #f2cc0c; }
+  .qase-tile.manual .value { color: #e02f44; }
+  .qase-tile.total .value { color: #5794f2; }
+  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
+  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
+  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
+  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
+  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+  .qase-pie {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .qase-pie::after {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: 50%;
+    background: #0b0f14;
+  }
+  .qase-pie-label {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 76px;
+  }
+  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }
+  .qase-banner h1 { margin: 0; font-size: 26px; }
+  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }
+  .qase-link { color: #6e9fff; text-decoration: none; }
+  .qase-link:hover { text-decoration: underline; }
+</style>
+
+<div class="qase-card">
+  <h2>Aura - Laika <span style="color:#8a929d;font-weight:400;font-size:14px;">(<a class="qase-link" href="https://app.qase.io/project/AL" target="_blank">AL</a>)</span></h2>
+  <div class="sub">Automation status across all test cases</div>
+  <div class="qase-grid">
+    <div class="qase-tile total"><div class="label">Total</div><div class="value">359</div></div>
+    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">16</div></div>
+    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">123</div></div>
+    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">220</div></div>
+  </div>
+  <div class="qase-coverage-label">Automation coverage (16 / 359)</div>
+  <div class="qase-coverage-wrap">
+    <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 4.46%, rgba(255,255,255,0.09) 4.46% 100%);"></div>
+    <div class="qase-pie-label" style="color:#e02f44;">4.46%</div>
+  </div>
+</div></div>
+    <div><style>
+  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }
+  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }
+  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }
+  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }
+  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }
+  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
+  .qase-tile.automated .value { color: #56a64b; }
+  .qase-tile.to-be-automated .value { color: #f2cc0c; }
+  .qase-tile.manual .value { color: #e02f44; }
+  .qase-tile.total .value { color: #5794f2; }
+  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
+  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
+  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
+  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
+  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+  .qase-pie {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .qase-pie::after {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: 50%;
+    background: #0b0f14;
+  }
+  .qase-pie-label {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 76px;
+  }
+  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }
+  .qase-banner h1 { margin: 0; font-size: 26px; }
+  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }
+  .qase-link { color: #6e9fff; text-decoration: none; }
+  .qase-link:hover { text-decoration: underline; }
+</style>
+
+<div class="qase-card">
+  <h2>IAI <span style="color:#8a929d;font-weight:400;font-size:14px;">(<a class="qase-link" href="https://app.qase.io/project/IAI" target="_blank">IAI</a>)</span></h2>
+  <div class="sub">Automation status across all test cases</div>
+  <div class="qase-grid">
+    <div class="qase-tile total"><div class="label">Total</div><div class="value">5,943</div></div>
+    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">131</div></div>
+    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">98</div></div>
+    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">5,714</div></div>
+  </div>
+  <div class="qase-coverage-label">Automation coverage (131 / 5,943)</div>
+  <div class="qase-coverage-wrap">
+    <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 2.2%, rgba(255,255,255,0.09) 2.2% 100%);"></div>
+    <div class="qase-pie-label" style="color:#e02f44;">2.2%</div>
+  </div>
+</div></div>
+    <div class="full"><style>
+  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }
+  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }
+  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }
+  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }
+  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }
+  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
+  .qase-tile.automated .value { color: #56a64b; }
+  .qase-tile.to-be-automated .value { color: #f2cc0c; }
+  .qase-tile.manual .value { color: #e02f44; }
+  .qase-tile.total .value { color: #5794f2; }
+  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
+  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
+  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
+  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
+  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+  .qase-pie {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .qase-pie::after {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: 50%;
+    background: #0b0f14;
+  }
+  .qase-pie-label {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 76px;
+  }
+  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }
+  .qase-banner h1 { margin: 0; font-size: 26px; }
+  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }
+  .qase-link { color: #6e9fff; text-decoration: none; }
+  .qase-link:hover { text-decoration: underline; }
+</style>
+
+<div class="qase-card">
+  <h2>Combined</h2>
+  <div class="sub">All selected projects together</div>
+  <div class="qase-grid">
+    <div class="qase-tile total"><div class="label">Total</div><div class="value">15,480</div></div>
+    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">846</div></div>
+    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">619</div></div>
+    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">14,015</div></div>
+  </div>
+  <div class="qase-coverage-label">Combined coverage (846 / 15,480)</div>
+  <div class="qase-coverage-wrap">
+    <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 5.47%, rgba(255,255,255,0.09) 5.47% 100%);"></div>
+    <div class="qase-pie-label" style="color:#e02f44;">5.47%</div>
+  </div>
+  <div style="margin-top:18px;">
+    <table style="width:100%;border-collapse:collapse;font-family:-apple-system,system-ui,sans-serif;font-size:13px;">
+      <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.15);color:#8a929d;text-transform:uppercase;font-size:11px;letter-spacing:0.5px;">
+        <th style="padding:6px 12px;text-align:left;">Project</th>
+        <th style="padding:6px 12px;text-align:right;">Total</th>
+        <th style="padding:6px 12px;text-align:right;">Automated</th>
+        <th style="padding:6px 12px;text-align:right;">To be automated</th>
+        <th style="padding:6px 12px;text-align:right;">Manual</th>
+        <th style="padding:6px 12px;text-align:right;">Coverage</th>
+      </tr></thead>
+      <tbody><tr><td style='padding:6px 12px;'>IAO</td><td style='padding:6px 12px;text-align:right;'>9,178</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>699</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>398</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>8,081</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>7.62%</td></tr><tr><td style='padding:6px 12px;'>AL</td><td style='padding:6px 12px;text-align:right;'>359</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>16</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>123</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>220</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>4.46%</td></tr><tr><td style='padding:6px 12px;'>IAI</td><td style='padding:6px 12px;text-align:right;'>5,943</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>131</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>98</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>5,714</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>2.2%</td></tr></tbody>
+    </table>
+  </div>
+</div></div>
+  </div>
+</body>
+</html>

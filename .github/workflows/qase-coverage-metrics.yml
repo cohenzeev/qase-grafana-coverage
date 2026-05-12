@@ -1,0 +1,36 @@
+# Push Qase automation coverage metrics to Aura VictoriaMetrics via collect_metrics.
+# Metrics appear in Grafana (Prometheus/VictoriaMetrics datasource) — see GRAFANA_QASE_METRICS.md
+name: Qase coverage metrics
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every 6 hours; adjust as needed
+    - cron: "0 */6 * * *"
+
+jobs:
+  push-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start OTel collector (remote-write to VictoriaMetrics)
+        uses: ironsource-aura/aura-shared-gha/actions/collect_metrics@main
+        with:
+          region: us-west-2
+          environment: prod
+          metrics_dir: ./metrics-data
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write OTLP JSON metrics
+        env:
+          QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
+          METRICS_DIR: ./metrics-data
+          METRIC_ORG_NAME: ironsource-aura
+        run: python scripts/emit_qase_coverage_otlp_json.py
