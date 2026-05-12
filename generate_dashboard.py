@@ -18,7 +18,6 @@ Usage:
 
 from __future__ import annotations
 
-import html
 import json
 import os
 import sys
@@ -62,180 +61,201 @@ def fetch_project_stats(token: str, code: str) -> dict:
     }
 
 
-# ---------- HTML rendering helpers ----------
+# ---------- Native Grafana panel builders ----------
+#
+# All panels are real Grafana panels (Stat, Pie chart, Table, Markdown text)
+# fed by the built-in TestData datasource via inline CSV. No raw HTML, no
+# `<div>`, no `<style>`, no `<svg>` — just JSON describing panels.
 
-CSS = """
-<style>
-  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }
-  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }
-  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }
-  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
-  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }
-  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }
-  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
-  .qase-tile.automated .value { color: #56a64b; }
-  .qase-tile.to-be-automated .value { color: #f2cc0c; }
-  .qase-tile.manual .value { color: #e02f44; }
-  .qase-tile.total .value { color: #5794f2; }
-  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
-  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
-  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
-  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
-  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
-  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
-  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
-  .qase-pie {
-    width: 84px;
-    height: 84px;
-    border-radius: 50%;
-    position: relative;
-    flex: 0 0 auto;
-  }
-  .qase-pie::after {
-    content: "";
-    position: absolute;
-    inset: 16px;
-    border-radius: 50%;
-    background: #0b0f14;
-  }
-  .qase-pie-label {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1;
-    min-width: 76px;
-  }
-  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }
-  .qase-banner h1 { margin: 0; font-size: 26px; }
-  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }
-  .qase-link { color: #6e9fff; text-decoration: none; }
-  .qase-link:hover { text-decoration: underline; }
-</style>
-"""
+GREEN = "green"
+YELL  = "yellow"
+RED   = "red"
+BLUE  = "blue"
 
 
-def bar_class(pct: float) -> str:
-    if pct >= 75:
-        return "green"
-    if pct >= 50:
-        return "yellow"
-    return "red"
+def _frame(fields: list[dict]) -> dict:
+    """Wrap a list of {name,type,values} field dicts as one Grafana DataFrame."""
+    return {"fields": fields}
 
 
-def banner_html(generated_at: str) -> str:
-    return f"""
-{CSS}
-<div class="qase-banner">
-  <h1>Qase Automation Coverage — IAO, AL &amp; IAI</h1>
-  <div class="meta">
-    Snapshot generated <b>{html.escape(generated_at)}</b> ·
-    Re-run <code>generate_dashboard.py</code> and re-import this dashboard to refresh.
-  </div>
-</div>
-""".strip()
+def _snapshot_target() -> dict:
+    return {"refId": "A"}
 
 
-def project_card_html(code: str, title: str, stats: dict) -> str:
-    pct = stats["coverage_pct"]
-    cls = bar_class(pct)
-    color = {"red": "#e02f44", "yellow": "#f2cc0c", "green": "#56a64b"}[cls]
-    return f"""
-{CSS}
-<div class="qase-card">
-  <h2>{html.escape(title)} <span style="color:#8a929d;font-weight:400;font-size:14px;">(<a class="qase-link" href="https://app.qase.io/project/{html.escape(code)}" target="_blank">{html.escape(code)}</a>)</span></h2>
-  <div class="sub">Automation status across all test cases</div>
-  <div class="qase-grid">
-    <div class="qase-tile total"><div class="label">Total</div><div class="value">{stats['total']:,}</div></div>
-    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">{stats['automated']:,}</div></div>
-    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">{stats['to_be_automated']:,}</div></div>
-    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">{stats['manual']:,}</div></div>
-  </div>
-  <div class="qase-coverage-label">Automation coverage ({stats['automated']:,} / {stats['total']:,})</div>
-  <div class="qase-coverage-wrap">
-    <div class="qase-pie" style="background: conic-gradient({color} 0% {pct}%, rgba(255,255,255,0.09) {pct}% 100%);"></div>
-    <div class="qase-pie-label" style="color:{color};">{pct}%</div>
-  </div>
-</div>
-""".strip()
+def banner_panel(panel_id: int, generated_at: str, gridPos: dict) -> dict:
+    md = (
+        "# Qase Automation Coverage — IAO, AL & IAI\n\n"
+        f"Snapshot generated **{generated_at}** · "
+        "re-run `generate_dashboard.py` and re-import this dashboard to refresh."
+    )
+    return {
+        "id": panel_id,
+        "type": "text",
+        "title": "",
+        "transparent": True,
+        "gridPos": gridPos,
+        "options": {"mode": "markdown", "content": md},
+    }
 
 
-def combined_card_html(stats_by_project: dict) -> str:
+def stats_panel(panel_id: int, title: str, stats: dict, gridPos: dict) -> dict:
+    frame = _frame([
+        {"name": "Total",           "type": "number", "values": [stats["total"]]},
+        {"name": "Automated",       "type": "number", "values": [stats["automated"]]},
+        {"name": "To be automated", "type": "number", "values": [stats["to_be_automated"]]},
+        {"name": "Manual",          "type": "number", "values": [stats["manual"]]},
+        {"name": "Coverage %",      "type": "number", "values": [stats["coverage_pct"]]},
+    ])
+    return {
+        "id": panel_id,
+        "type": "stat",
+        "title": title,
+        "gridPos": gridPos,
+        "datasource": None,
+        "targets": [_snapshot_target()],
+        "snapshotData": [frame],
+        "options": {
+            "reduceOptions": {"values": False, "calcs": ["lastNotNull"], "fields": ""},
+            "orientation": "horizontal",
+            "textMode": "value_and_name",
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+        },
+        "fieldConfig": {
+            "defaults": {"color": {"mode": "fixed", "fixedColor": BLUE}, "unit": "short"},
+            "overrides": [
+                {"matcher": {"id": "byName", "options": "Automated"},
+                 "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": GREEN}}]},
+                {"matcher": {"id": "byName", "options": "To be automated"},
+                 "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": YELL}}]},
+                {"matcher": {"id": "byName", "options": "Manual"},
+                 "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": RED}}]},
+                {"matcher": {"id": "byName", "options": "Coverage %"},
+                 "properties": [
+                     {"id": "color", "value": {"mode": "fixed", "fixedColor": BLUE}},
+                     {"id": "unit", "value": "percent"},
+                 ]},
+            ],
+        },
+    }
+
+
+def pie_panel(panel_id: int, title: str, stats: dict, gridPos: dict) -> dict:
+    frame = _frame([
+        {"name": "status", "type": "string",
+         "values": ["Automated", "To be automated", "Manual"]},
+        {"name": "count",  "type": "number",
+         "values": [stats["automated"], stats["to_be_automated"], stats["manual"]]},
+    ])
+    return {
+        "id": panel_id,
+        "type": "piechart",
+        "title": title,
+        "gridPos": gridPos,
+        "datasource": None,
+        "targets": [_snapshot_target()],
+        "snapshotData": [frame],
+        "options": {
+            "reduceOptions": {"values": True, "calcs": ["lastNotNull"], "fields": "/^count$/"},
+            "pieType": "pie",
+            "tooltip": {"mode": "single", "sort": "none"},
+            "legend": {
+                "displayMode": "table",
+                "placement": "right",
+                "showLegend": True,
+                "values": ["value", "percent"],
+            },
+            "displayLabels": ["percent"],
+        },
+        "fieldConfig": {
+            "defaults": {"unit": "short", "color": {"mode": "palette-classic"}},
+            "overrides": [
+                {"matcher": {"id": "byName", "options": "Automated"},
+                 "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": GREEN}}]},
+                {"matcher": {"id": "byName", "options": "To be automated"},
+                 "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": YELL}}]},
+                {"matcher": {"id": "byName", "options": "Manual"},
+                 "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": RED}}]},
+            ],
+        },
+    }
+
+
+def comparison_table_panel(panel_id: int, title: str, stats_by_project: dict, gridPos: dict) -> dict:
+    codes = list(stats_by_project.keys())
+    frame = _frame([
+        {"name": "Project",          "type": "string", "values": codes},
+        {"name": "Total",            "type": "number", "values": [stats_by_project[c]["total"]           for c in codes]},
+        {"name": "Automated",        "type": "number", "values": [stats_by_project[c]["automated"]       for c in codes]},
+        {"name": "To be automated",  "type": "number", "values": [stats_by_project[c]["to_be_automated"] for c in codes]},
+        {"name": "Manual",           "type": "number", "values": [stats_by_project[c]["manual"]          for c in codes]},
+        {"name": "Coverage %",       "type": "number", "values": [stats_by_project[c]["coverage_pct"]    for c in codes]},
+    ])
+    return {
+        "id": panel_id,
+        "type": "table",
+        "title": title,
+        "gridPos": gridPos,
+        "datasource": None,
+        "targets": [_snapshot_target()],
+        "snapshotData": [frame],
+        "options": {"showHeader": True, "cellHeight": "sm"},
+        "fieldConfig": {
+            "defaults": {"custom": {"align": "right", "displayMode": "auto"}},
+            "overrides": [
+                {"matcher": {"id": "byName", "options": "Project"},
+                 "properties": [{"id": "custom.align", "value": "left"}]},
+                {"matcher": {"id": "byName", "options": "Coverage %"},
+                 "properties": [{"id": "unit", "value": "percent"}]},
+            ],
+        },
+    }
+
+
+def combined_stats(stats_by_project: dict) -> dict:
     total = sum(s["total"] for s in stats_by_project.values())
     automated = sum(s["automated"] for s in stats_by_project.values())
     to_be = sum(s["to_be_automated"] for s in stats_by_project.values())
     manual = sum(s["manual"] for s in stats_by_project.values())
     pct = round(automated * 100 / total, 2) if total else 0.0
-    cls = bar_class(pct)
-    color = {"red": "#e02f44", "yellow": "#f2cc0c", "green": "#56a64b"}[cls]
-    rows = "".join(
-        f"<tr>"
-        f"<td style='padding:6px 12px;'>{html.escape(code)}</td>"
-        f"<td style='padding:6px 12px;text-align:right;'>{s['total']:,}</td>"
-        f"<td style='padding:6px 12px;text-align:right;color:#56a64b;'>{s['automated']:,}</td>"
-        f"<td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>{s['to_be_automated']:,}</td>"
-        f"<td style='padding:6px 12px;text-align:right;color:#e02f44;'>{s['manual']:,}</td>"
-        f"<td style='padding:6px 12px;text-align:right;font-weight:600;'>{s['coverage_pct']}%</td>"
-        f"</tr>"
-        for code, s in stats_by_project.items()
-    )
-    return f"""
-{CSS}
-<div class="qase-card">
-  <h2>Combined</h2>
-  <div class="sub">All selected projects together</div>
-  <div class="qase-grid">
-    <div class="qase-tile total"><div class="label">Total</div><div class="value">{total:,}</div></div>
-    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">{automated:,}</div></div>
-    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">{to_be:,}</div></div>
-    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">{manual:,}</div></div>
-  </div>
-  <div class="qase-coverage-label">Combined coverage ({automated:,} / {total:,})</div>
-  <div class="qase-coverage-wrap">
-    <div class="qase-pie" style="background: conic-gradient({color} 0% {pct}%, rgba(255,255,255,0.09) {pct}% 100%);"></div>
-    <div class="qase-pie-label" style="color:{color};">{pct}%</div>
-  </div>
-  <div style="margin-top:18px;">
-    <table style="width:100%;border-collapse:collapse;font-family:-apple-system,system-ui,sans-serif;font-size:13px;">
-      <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.15);color:#8a929d;text-transform:uppercase;font-size:11px;letter-spacing:0.5px;">
-        <th style="padding:6px 12px;text-align:left;">Project</th>
-        <th style="padding:6px 12px;text-align:right;">Total</th>
-        <th style="padding:6px 12px;text-align:right;">Automated</th>
-        <th style="padding:6px 12px;text-align:right;">To be automated</th>
-        <th style="padding:6px 12px;text-align:right;">Manual</th>
-        <th style="padding:6px 12px;text-align:right;">Coverage</th>
-      </tr></thead>
-      <tbody>{rows}</tbody>
-    </table>
-  </div>
-</div>
-""".strip()
-
-
-# ---------- Dashboard assembly ----------
-
-def text_panel(panel_id: int, title: str, content: str, gridPos: dict) -> dict:
     return {
-        "id": panel_id,
-        "type": "text",
-        "title": title,
-        "transparent": True,
-        "gridPos": gridPos,
-        "options": {"mode": "html", "content": content},
+        "total": total,
+        "automated": automated,
+        "to_be_automated": to_be,
+        "manual": manual,
+        "coverage_pct": pct,
     }
 
 
+PROJECT_ROWS = [
+    ("IAO", "[iS] Aura - oobe"),
+    ("AL",  "Aura - Laika"),
+    ("IAI", "IAI"),
+]
+
+
 def build_dashboard(stats_by_project: dict, generated_at: str) -> dict:
-    panels = [
-        text_panel(1, "", banner_html(generated_at),
-                   {"h": 4, "w": 24, "x": 0, "y": 0}),
-        text_panel(2, "", project_card_html("IAO", "[iS] Aura - oobe", stats_by_project["IAO"]),
-                   {"h": 11, "w": 8, "x": 0, "y": 4}),
-        text_panel(3, "", project_card_html("AL", "Aura - Laika", stats_by_project["AL"]),
-                   {"h": 11, "w": 8, "x": 8, "y": 4}),
-        text_panel(4, "", project_card_html("IAI", "IAI", stats_by_project["IAI"]),
-                   {"h": 11, "w": 8, "x": 16, "y": 4}),
-        text_panel(5, "", combined_card_html(stats_by_project),
-                   {"h": 14, "w": 24, "x": 0, "y": 15}),
-    ]
+    combined = combined_stats(stats_by_project)
+
+    panels = [banner_panel(1, generated_at, {"h": 3, "w": 24, "x": 0, "y": 0})]
+
+    pid = 10
+    y = 3
+    for code, title in PROJECT_ROWS:
+        s = stats_by_project[code]
+        panels.append(stats_panel(pid, f"{title} ({code})", s,
+                                  {"h": 7, "w": 16, "x": 0, "y": y}))
+        panels.append(pie_panel(pid + 1, f"{code} — Automation breakdown", s,
+                                {"h": 7, "w": 8, "x": 16, "y": y}))
+        pid += 10
+        y += 7
+
+    panels.append(pie_panel(40, "Combined — Automation breakdown", combined,
+                            {"h": 10, "w": 10, "x": 0, "y": y}))
+    panels.append(comparison_table_panel(41, "Per-project comparison", stats_by_project,
+                                         {"h": 10, "w": 14, "x": 10, "y": y}))
+
     return {
         "title": "Qase Automation Coverage — IAO, AL & IAI",
         "uid": "qase-automation-coverage",
@@ -244,6 +264,14 @@ def build_dashboard(stats_by_project: dict, generated_at: str) -> dict:
         "schemaVersion": 39,
         "refresh": "",
         "time": {"from": "now-24h", "to": "now"},
+        "snapshot": {
+            "name": "Qase Automation Coverage Snapshot",
+            "timestamp": generated_at,
+            "originalUrl": "",
+            "expires": "0001-01-01T00:00:00Z",
+            "external": False,
+            "externalUrl": "",
+        },
         "panels": panels,
     }
 

@@ -16,6 +16,14 @@
     "from": "now-24h",
     "to": "now"
   },
+  "snapshot": {
+    "name": "Qase Automation Coverage Snapshot",
+    "timestamp": "2026-05-12 13:55 UTC",
+    "originalUrl": "",
+    "expires": "0001-01-01T00:00:00Z",
+    "external": false,
+    "externalUrl": ""
+  },
   "panels": [
     {
       "id": 1,
@@ -23,78 +31,1058 @@
       "title": "",
       "transparent": true,
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 24,
         "x": 0,
         "y": 0
       },
       "options": {
-        "mode": "html",
-        "content": "<style>\n  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }\n  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }\n  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }\n  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }\n  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }\n  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }\n  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }\n  .qase-tile.automated .value { color: #56a64b; }\n  .qase-tile.to-be-automated .value { color: #f2cc0c; }\n  .qase-tile.manual .value { color: #e02f44; }\n  .qase-tile.total .value { color: #5794f2; }\n  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }\n  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }\n  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }\n  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }\n  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }\n  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }\n  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }\n  .qase-pie {\n    width: 84px;\n    height: 84px;\n    border-radius: 50%;\n    position: relative;\n    flex: 0 0 auto;\n  }\n  .qase-pie::after {\n    content: \"\";\n    position: absolute;\n    inset: 16px;\n    border-radius: 50%;\n    background: #0b0f14;\n  }\n  .qase-pie-label {\n    font-size: 24px;\n    font-weight: 700;\n    line-height: 1;\n    min-width: 76px;\n  }\n  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }\n  .qase-banner h1 { margin: 0; font-size: 26px; }\n  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }\n  .qase-link { color: #6e9fff; text-decoration: none; }\n  .qase-link:hover { text-decoration: underline; }\n</style>\n\n<div class=\"qase-banner\">\n  <h1>Qase Automation Coverage \u2014 IAO, AL &amp; IAI</h1>\n  <div class=\"meta\">\n    Snapshot generated <b>2026-05-12 12:19 UTC</b> \u00b7\n    Re-run <code>generate_dashboard.py</code> and re-import this dashboard to refresh.\n  </div>\n</div>"
+        "mode": "markdown",
+        "content": "# Qase Automation Coverage \u2014 IAO, AL & IAI\n\nSnapshot generated **2026-05-12 13:55 UTC** \u00b7 re-run `generate_dashboard.py` and re-import this dashboard to refresh."
       }
     },
     {
-      "id": 2,
-      "type": "text",
-      "title": "",
-      "transparent": true,
+      "id": 10,
+      "type": "stat",
+      "title": "[iS] Aura - oobe (IAO)",
       "gridPos": {
-        "h": 11,
-        "w": 8,
+        "h": 7,
+        "w": 16,
         "x": 0,
-        "y": 4
+        "y": 3
       },
+      "datasource": null,
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "snapshotData": [
+        {
+          "fields": [
+            {
+              "name": "Total",
+              "type": "number",
+              "values": [
+                9182
+              ]
+            },
+            {
+              "name": "Automated",
+              "type": "number",
+              "values": [
+                699
+              ]
+            },
+            {
+              "name": "To be automated",
+              "type": "number",
+              "values": [
+                398
+              ]
+            },
+            {
+              "name": "Manual",
+              "type": "number",
+              "values": [
+                8085
+              ]
+            },
+            {
+              "name": "Coverage %",
+              "type": "number",
+              "values": [
+                7.61
+              ]
+            }
+          ]
+        }
+      ],
       "options": {
-        "mode": "html",
-        "content": "<style>\n  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }\n  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }\n  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }\n  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }\n  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }\n  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }\n  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }\n  .qase-tile.automated .value { color: #56a64b; }\n  .qase-tile.to-be-automated .value { color: #f2cc0c; }\n  .qase-tile.manual .value { color: #e02f44; }\n  .qase-tile.total .value { color: #5794f2; }\n  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }\n  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }\n  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }\n  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }\n  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }\n  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }\n  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }\n  .qase-pie {\n    width: 84px;\n    height: 84px;\n    border-radius: 50%;\n    position: relative;\n    flex: 0 0 auto;\n  }\n  .qase-pie::after {\n    content: \"\";\n    position: absolute;\n    inset: 16px;\n    border-radius: 50%;\n    background: #0b0f14;\n  }\n  .qase-pie-label {\n    font-size: 24px;\n    font-weight: 700;\n    line-height: 1;\n    min-width: 76px;\n  }\n  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }\n  .qase-banner h1 { margin: 0; font-size: 26px; }\n  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }\n  .qase-link { color: #6e9fff; text-decoration: none; }\n  .qase-link:hover { text-decoration: underline; }\n</style>\n\n<div class=\"qase-card\">\n  <h2>[iS] Aura - oobe <span style=\"color:#8a929d;font-weight:400;font-size:14px;\">(<a class=\"qase-link\" href=\"https://app.qase.io/project/IAO\" target=\"_blank\">IAO</a>)</span></h2>\n  <div class=\"sub\">Automation status across all test cases</div>\n  <div class=\"qase-grid\">\n    <div class=\"qase-tile total\"><div class=\"label\">Total</div><div class=\"value\">9,182</div></div>\n    <div class=\"qase-tile automated\"><div class=\"label\">Automated</div><div class=\"value\">699</div></div>\n    <div class=\"qase-tile to-be-automated\"><div class=\"label\">To be automated</div><div class=\"value\">398</div></div>\n    <div class=\"qase-tile manual\"><div class=\"label\">Manual</div><div class=\"value\">8,085</div></div>\n  </div>\n  <div class=\"qase-coverage-label\">Automation coverage (699 / 9,182)</div>\n  <div class=\"qase-coverage-wrap\">\n    <div class=\"qase-pie\" style=\"background: conic-gradient(#e02f44 0% 7.61%, rgba(255,255,255,0.09) 7.61% 100%);\"></div>\n    <div class=\"qase-pie-label\" style=\"color:#e02f44;\">7.61%</div>\n  </div>\n</div>"
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "To be automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "yellow"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manual"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Coverage %"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "blue"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
       }
     },
     {
-      "id": 3,
-      "type": "text",
-      "title": "",
-      "transparent": true,
+      "id": 11,
+      "type": "piechart",
+      "title": "IAO \u2014 Automation breakdown",
       "gridPos": {
-        "h": 11,
-        "w": 8,
-        "x": 8,
-        "y": 4
-      },
-      "options": {
-        "mode": "html",
-        "content": "<style>\n  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }\n  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }\n  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }\n  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }\n  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }\n  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }\n  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }\n  .qase-tile.automated .value { color: #56a64b; }\n  .qase-tile.to-be-automated .value { color: #f2cc0c; }\n  .qase-tile.manual .value { color: #e02f44; }\n  .qase-tile.total .value { color: #5794f2; }\n  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }\n  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }\n  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }\n  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }\n  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }\n  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }\n  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }\n  .qase-pie {\n    width: 84px;\n    height: 84px;\n    border-radius: 50%;\n    position: relative;\n    flex: 0 0 auto;\n  }\n  .qase-pie::after {\n    content: \"\";\n    position: absolute;\n    inset: 16px;\n    border-radius: 50%;\n    background: #0b0f14;\n  }\n  .qase-pie-label {\n    font-size: 24px;\n    font-weight: 700;\n    line-height: 1;\n    min-width: 76px;\n  }\n  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }\n  .qase-banner h1 { margin: 0; font-size: 26px; }\n  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }\n  .qase-link { color: #6e9fff; text-decoration: none; }\n  .qase-link:hover { text-decoration: underline; }\n</style>\n\n<div class=\"qase-card\">\n  <h2>Aura - Laika <span style=\"color:#8a929d;font-weight:400;font-size:14px;\">(<a class=\"qase-link\" href=\"https://app.qase.io/project/AL\" target=\"_blank\">AL</a>)</span></h2>\n  <div class=\"sub\">Automation status across all test cases</div>\n  <div class=\"qase-grid\">\n    <div class=\"qase-tile total\"><div class=\"label\">Total</div><div class=\"value\">356</div></div>\n    <div class=\"qase-tile automated\"><div class=\"label\">Automated</div><div class=\"value\">22</div></div>\n    <div class=\"qase-tile to-be-automated\"><div class=\"label\">To be automated</div><div class=\"value\">125</div></div>\n    <div class=\"qase-tile manual\"><div class=\"label\">Manual</div><div class=\"value\">209</div></div>\n  </div>\n  <div class=\"qase-coverage-label\">Automation coverage (22 / 356)</div>\n  <div class=\"qase-coverage-wrap\">\n    <div class=\"qase-pie\" style=\"background: conic-gradient(#e02f44 0% 6.18%, rgba(255,255,255,0.09) 6.18% 100%);\"></div>\n    <div class=\"qase-pie-label\" style=\"color:#e02f44;\">6.18%</div>\n  </div>\n</div>"
-      }
-    },
-    {
-      "id": 4,
-      "type": "text",
-      "title": "",
-      "transparent": true,
-      "gridPos": {
-        "h": 11,
+        "h": 7,
         "w": 8,
         "x": 16,
-        "y": 4
+        "y": 3
       },
+      "datasource": null,
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "snapshotData": [
+        {
+          "fields": [
+            {
+              "name": "status",
+              "type": "string",
+              "values": [
+                "Automated",
+                "To be automated",
+                "Manual"
+              ]
+            },
+            {
+              "name": "count",
+              "type": "number",
+              "values": [
+                699,
+                398,
+                8085
+              ]
+            }
+          ]
+        }
+      ],
       "options": {
-        "mode": "html",
-        "content": "<style>\n  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }\n  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }\n  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }\n  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }\n  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }\n  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }\n  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }\n  .qase-tile.automated .value { color: #56a64b; }\n  .qase-tile.to-be-automated .value { color: #f2cc0c; }\n  .qase-tile.manual .value { color: #e02f44; }\n  .qase-tile.total .value { color: #5794f2; }\n  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }\n  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }\n  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }\n  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }\n  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }\n  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }\n  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }\n  .qase-pie {\n    width: 84px;\n    height: 84px;\n    border-radius: 50%;\n    position: relative;\n    flex: 0 0 auto;\n  }\n  .qase-pie::after {\n    content: \"\";\n    position: absolute;\n    inset: 16px;\n    border-radius: 50%;\n    background: #0b0f14;\n  }\n  .qase-pie-label {\n    font-size: 24px;\n    font-weight: 700;\n    line-height: 1;\n    min-width: 76px;\n  }\n  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }\n  .qase-banner h1 { margin: 0; font-size: 26px; }\n  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }\n  .qase-link { color: #6e9fff; text-decoration: none; }\n  .qase-link:hover { text-decoration: underline; }\n</style>\n\n<div class=\"qase-card\">\n  <h2>IAI <span style=\"color:#8a929d;font-weight:400;font-size:14px;\">(<a class=\"qase-link\" href=\"https://app.qase.io/project/IAI\" target=\"_blank\">IAI</a>)</span></h2>\n  <div class=\"sub\">Automation status across all test cases</div>\n  <div class=\"qase-grid\">\n    <div class=\"qase-tile total\"><div class=\"label\">Total</div><div class=\"value\">6,018</div></div>\n    <div class=\"qase-tile automated\"><div class=\"label\">Automated</div><div class=\"value\">131</div></div>\n    <div class=\"qase-tile to-be-automated\"><div class=\"label\">To be automated</div><div class=\"value\">106</div></div>\n    <div class=\"qase-tile manual\"><div class=\"label\">Manual</div><div class=\"value\">5,781</div></div>\n  </div>\n  <div class=\"qase-coverage-label\">Automation coverage (131 / 6,018)</div>\n  <div class=\"qase-coverage-wrap\">\n    <div class=\"qase-pie\" style=\"background: conic-gradient(#e02f44 0% 2.18%, rgba(255,255,255,0.09) 2.18% 100%);\"></div>\n    <div class=\"qase-pie-label\" style=\"color:#e02f44;\">2.18%</div>\n  </div>\n</div>"
+        "reduceOptions": {
+          "values": true,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/"
+        },
+        "pieType": "pie",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "displayLabels": [
+          "percent"
+        ]
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "To be automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "yellow"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manual"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          }
+        ]
       }
     },
     {
-      "id": 5,
-      "type": "text",
-      "title": "",
-      "transparent": true,
+      "id": 20,
+      "type": "stat",
+      "title": "Aura - Laika (AL)",
       "gridPos": {
-        "h": 14,
-        "w": 24,
+        "h": 7,
+        "w": 16,
         "x": 0,
-        "y": 15
+        "y": 10
       },
+      "datasource": null,
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "snapshotData": [
+        {
+          "fields": [
+            {
+              "name": "Total",
+              "type": "number",
+              "values": [
+                350
+              ]
+            },
+            {
+              "name": "Automated",
+              "type": "number",
+              "values": [
+                22
+              ]
+            },
+            {
+              "name": "To be automated",
+              "type": "number",
+              "values": [
+                120
+              ]
+            },
+            {
+              "name": "Manual",
+              "type": "number",
+              "values": [
+                208
+              ]
+            },
+            {
+              "name": "Coverage %",
+              "type": "number",
+              "values": [
+                6.29
+              ]
+            }
+          ]
+        }
+      ],
       "options": {
-        "mode": "html",
-        "content": "<style>\n  .qase-card { font-family: -apple-system, system-ui, sans-serif; padding: 16px; }\n  .qase-card h2 { margin: 0 0 4px 0; font-size: 22px; }\n  .qase-card .sub { color: #8a929d; font-size: 13px; margin-bottom: 16px; }\n  .qase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }\n  .qase-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 12px; text-align: center; }\n  .qase-tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #8a929d; }\n  .qase-tile .value { font-size: 28px; font-weight: 600; margin-top: 4px; }\n  .qase-tile.automated .value { color: #56a64b; }\n  .qase-tile.to-be-automated .value { color: #f2cc0c; }\n  .qase-tile.manual .value { color: #e02f44; }\n  .qase-tile.total .value { color: #5794f2; }\n  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }\n  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }\n  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }\n  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }\n  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }\n  .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }\n  .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }\n  .qase-pie {\n    width: 84px;\n    height: 84px;\n    border-radius: 50%;\n    position: relative;\n    flex: 0 0 auto;\n  }\n  .qase-pie::after {\n    content: \"\";\n    position: absolute;\n    inset: 16px;\n    border-radius: 50%;\n    background: #0b0f14;\n  }\n  .qase-pie-label {\n    font-size: 24px;\n    font-weight: 700;\n    line-height: 1;\n    min-width: 76px;\n  }\n  .qase-banner { font-family: -apple-system, system-ui, sans-serif; padding: 20px 24px; }\n  .qase-banner h1 { margin: 0; font-size: 26px; }\n  .qase-banner .meta { color: #8a929d; font-size: 13px; margin-top: 6px; }\n  .qase-link { color: #6e9fff; text-decoration: none; }\n  .qase-link:hover { text-decoration: underline; }\n</style>\n\n<div class=\"qase-card\">\n  <h2>Combined</h2>\n  <div class=\"sub\">All selected projects together</div>\n  <div class=\"qase-grid\">\n    <div class=\"qase-tile total\"><div class=\"label\">Total</div><div class=\"value\">15,556</div></div>\n    <div class=\"qase-tile automated\"><div class=\"label\">Automated</div><div class=\"value\">852</div></div>\n    <div class=\"qase-tile to-be-automated\"><div class=\"label\">To be automated</div><div class=\"value\">629</div></div>\n    <div class=\"qase-tile manual\"><div class=\"label\">Manual</div><div class=\"value\">14,075</div></div>\n  </div>\n  <div class=\"qase-coverage-label\">Combined coverage (852 / 15,556)</div>\n  <div class=\"qase-coverage-wrap\">\n    <div class=\"qase-pie\" style=\"background: conic-gradient(#e02f44 0% 5.48%, rgba(255,255,255,0.09) 5.48% 100%);\"></div>\n    <div class=\"qase-pie-label\" style=\"color:#e02f44;\">5.48%</div>\n  </div>\n  <div style=\"margin-top:18px;\">\n    <table style=\"width:100%;border-collapse:collapse;font-family:-apple-system,system-ui,sans-serif;font-size:13px;\">\n      <thead><tr style=\"border-bottom:1px solid rgba(255,255,255,0.15);color:#8a929d;text-transform:uppercase;font-size:11px;letter-spacing:0.5px;\">\n        <th style=\"padding:6px 12px;text-align:left;\">Project</th>\n        <th style=\"padding:6px 12px;text-align:right;\">Total</th>\n        <th style=\"padding:6px 12px;text-align:right;\">Automated</th>\n        <th style=\"padding:6px 12px;text-align:right;\">To be automated</th>\n        <th style=\"padding:6px 12px;text-align:right;\">Manual</th>\n        <th style=\"padding:6px 12px;text-align:right;\">Coverage</th>\n      </tr></thead>\n      <tbody><tr><td style='padding:6px 12px;'>IAO</td><td style='padding:6px 12px;text-align:right;'>9,182</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>699</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>398</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>8,085</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>7.61%</td></tr><tr><td style='padding:6px 12px;'>AL</td><td style='padding:6px 12px;text-align:right;'>356</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>22</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>125</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>209</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>6.18%</td></tr><tr><td style='padding:6px 12px;'>IAI</td><td style='padding:6px 12px;text-align:right;'>6,018</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>131</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>106</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>5,781</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>2.18%</td></tr></tbody>\n    </table>\n  </div>\n</div>"
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "To be automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "yellow"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manual"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Coverage %"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "blue"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "type": "piechart",
+      "title": "AL \u2014 Automation breakdown",
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      },
+      "datasource": null,
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "snapshotData": [
+        {
+          "fields": [
+            {
+              "name": "status",
+              "type": "string",
+              "values": [
+                "Automated",
+                "To be automated",
+                "Manual"
+              ]
+            },
+            {
+              "name": "count",
+              "type": "number",
+              "values": [
+                22,
+                120,
+                208
+              ]
+            }
+          ]
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "values": true,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/"
+        },
+        "pieType": "pie",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "displayLabels": [
+          "percent"
+        ]
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "To be automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "yellow"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manual"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "type": "stat",
+      "title": "IAI (IAI)",
+      "gridPos": {
+        "h": 7,
+        "w": 16,
+        "x": 0,
+        "y": 17
+      },
+      "datasource": null,
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "snapshotData": [
+        {
+          "fields": [
+            {
+              "name": "Total",
+              "type": "number",
+              "values": [
+                6110
+              ]
+            },
+            {
+              "name": "Automated",
+              "type": "number",
+              "values": [
+                133
+              ]
+            },
+            {
+              "name": "To be automated",
+              "type": "number",
+              "values": [
+                104
+              ]
+            },
+            {
+              "name": "Manual",
+              "type": "number",
+              "values": [
+                5873
+              ]
+            },
+            {
+              "name": "Coverage %",
+              "type": "number",
+              "values": [
+                2.18
+              ]
+            }
+          ]
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "orientation": "horizontal",
+        "textMode": "value_and_name",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "To be automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "yellow"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manual"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Coverage %"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "blue"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "type": "piechart",
+      "title": "IAI \u2014 Automation breakdown",
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 17
+      },
+      "datasource": null,
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "snapshotData": [
+        {
+          "fields": [
+            {
+              "name": "status",
+              "type": "string",
+              "values": [
+                "Automated",
+                "To be automated",
+                "Manual"
+              ]
+            },
+            {
+              "name": "count",
+              "type": "number",
+              "values": [
+                133,
+                104,
+                5873
+              ]
+            }
+          ]
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "values": true,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/"
+        },
+        "pieType": "pie",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "displayLabels": [
+          "percent"
+        ]
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "To be automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "yellow"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manual"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "type": "piechart",
+      "title": "Combined \u2014 Automation breakdown",
+      "gridPos": {
+        "h": 10,
+        "w": 10,
+        "x": 0,
+        "y": 24
+      },
+      "datasource": null,
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "snapshotData": [
+        {
+          "fields": [
+            {
+              "name": "status",
+              "type": "string",
+              "values": [
+                "Automated",
+                "To be automated",
+                "Manual"
+              ]
+            },
+            {
+              "name": "count",
+              "type": "number",
+              "values": [
+                854,
+                622,
+                14166
+              ]
+            }
+          ]
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "values": true,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/"
+        },
+        "pieType": "pie",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "displayLabels": [
+          "percent"
+        ]
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "To be automated"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "yellow"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manual"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 41,
+      "type": "table",
+      "title": "Per-project comparison",
+      "gridPos": {
+        "h": 10,
+        "w": 14,
+        "x": 10,
+        "y": 24
+      },
+      "datasource": null,
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "snapshotData": [
+        {
+          "fields": [
+            {
+              "name": "Project",
+              "type": "string",
+              "values": [
+                "IAO",
+                "AL",
+                "IAI"
+              ]
+            },
+            {
+              "name": "Total",
+              "type": "number",
+              "values": [
+                9182,
+                350,
+                6110
+              ]
+            },
+            {
+              "name": "Automated",
+              "type": "number",
+              "values": [
+                699,
+                22,
+                133
+              ]
+            },
+            {
+              "name": "To be automated",
+              "type": "number",
+              "values": [
+                398,
+                120,
+                104
+              ]
+            },
+            {
+              "name": "Manual",
+              "type": "number",
+              "values": [
+                8085,
+                208,
+                5873
+              ]
+            },
+            {
+              "name": "Coverage %",
+              "type": "number",
+              "values": [
+                7.61,
+                6.29,
+                2.18
+              ]
+            }
+          ]
+        }
+      ],
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "right",
+            "displayMode": "auto"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Project"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Coverage %"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
       }
     }
   ]
