@@ -38,9 +38,9 @@ def _load_env_file() -> None:
 
 
 SAMPLE_STATS = {
-    "IAO": {"total": 1000, "automated": 100, "to_be_automated":  50, "manual": 850, "coverage_pct": 10.0},
-    "AL":  {"total":  200, "automated":  20, "to_be_automated":  30, "manual": 150, "coverage_pct": 10.0},
-    "IAI": {"total":  300, "automated":   0, "to_be_automated":  10, "manual": 290, "coverage_pct":  0.0},
+    "IAO": {"total": 1000, "automated": 100, "to_be_automated":  50, "manual": 850, "coverage_pct": 10.0, "target_coverage_pct": 66.67},
+    "AL":  {"total":  200, "automated":  20, "to_be_automated":  30, "manual": 150, "coverage_pct": 10.0, "target_coverage_pct": 40.0},
+    "IAI": {"total":  300, "automated":   0, "to_be_automated":  10, "manual": 290, "coverage_pct":  0.0, "target_coverage_pct":  0.0},
 }
 
 
@@ -58,6 +58,8 @@ def test_combined_stats_sums_across_projects():
     assert c["manual"]          == 1290, c
     # 120 / 1500 = 8.0%
     assert c["coverage_pct"]    ==  8.0, c
+    # 120 / (120 + 90) = 57.14%
+    assert c["target_coverage_pct"] == 57.14, c
 
 
 # ---------- 2. combined_stats edge case ----------
@@ -66,8 +68,41 @@ def test_combined_stats_empty_returns_zeroes():
     c = gd.combined_stats({})
     assert c == {
         "total": 0, "automated": 0, "to_be_automated": 0,
-        "manual": 0, "coverage_pct": 0.0,
+        "manual": 0, "coverage_pct": 0.0, "target_coverage_pct": 0.0,
     }, c
+
+
+# ---------- 2b. fetch_project_stats target coverage formula ----------
+
+def test_fetch_project_stats_target_coverage_formula(monkeypatch=None):
+    """Verify target_coverage_pct = automated / (automated + to_be_automated) * 100,
+    using a stubbed api_count so no network is needed."""
+    counts = {
+        "": 1000,
+        "automated": 100,
+        "to-be-automated": 50,
+    }
+
+    def fake_api_count(_token, _project, params):
+        return counts[params.get("automation", "")]
+
+    orig = gd.api_count
+    gd.api_count = fake_api_count
+    try:
+        s = gd.fetch_project_stats("tok", "IAO")
+    finally:
+        gd.api_count = orig
+
+    assert s["target_coverage_pct"] == 66.67, s
+    # zero-denominator branch
+    counts["automated"] = 0
+    counts["to-be-automated"] = 0
+    gd.api_count = fake_api_count
+    try:
+        s2 = gd.fetch_project_stats("tok", "IAO")
+    finally:
+        gd.api_count = orig
+    assert s2["target_coverage_pct"] == 0.0, s2
 
 
 # ---------- 3. pie_panel snapshotData ----------
@@ -81,8 +116,13 @@ def test_pie_panel_carries_inline_snapshot_data():
     assert "snapshotData" in panel,         "pie panel must carry inline snapshotData"
 
     frame = panel["snapshotData"][0]
-    assert _field(frame, "status")["values"] == ["Automated", "To be automated", "Manual"]
-    assert _field(frame, "count")["values"]  == [100, 50, 850]
+    target_label = f"★ TARGET COVERAGE — {SAMPLE_STATS['IAO']['target_coverage_pct']}% ★"
+    assert _field(frame, "status")["values"] == [
+        "Automated", "To be automated", "Manual", target_label,
+    ]
+    # The target row is a zero-value placeholder so it shows up in the legend
+    # table without distorting the actual breakdown slices.
+    assert _field(frame, "count")["values"] == [100, 50, 850, 0]
 
 
 # ---------- 4. comparison_table_panel ----------
@@ -130,7 +170,8 @@ def test_fetch_project_stats_from_qase_api():
     if not token:
         raise _Skip("QASE_API_TOKEN not set — skipping live Qase fetch")
 
-    expected_keys = {"total", "automated", "to_be_automated", "manual", "coverage_pct"}
+    expected_keys = {"total", "automated", "to_be_automated", "manual",
+                     "coverage_pct", "target_coverage_pct"}
 
     for p in gd.PROJECTS:
         code = p["code"]
@@ -145,9 +186,10 @@ def test_fetch_project_stats_from_qase_api():
             f"{code}: parts must sum to total, got {s}"
         )
         assert 0 <= s["coverage_pct"] <= 100,   f"{code}: coverage out of range, got {s}"
+        assert 0 <= s["target_coverage_pct"] <= 100, f"{code}: target coverage out of range, got {s}"
 
         print(f"      {code}: total={s['total']} automated={s['automated']} "
-              f"coverage={s['coverage_pct']}%")
+              f"coverage={s['coverage_pct']}% target={s['target_coverage_pct']}%")
 
 
 # ---------- runner ----------
@@ -155,6 +197,7 @@ def test_fetch_project_stats_from_qase_api():
 TESTS = [
     test_combined_stats_sums_across_projects,
     test_combined_stats_empty_returns_zeroes,
+    test_fetch_project_stats_target_coverage_formula,
     test_pie_panel_carries_inline_snapshot_data,
     test_comparison_table_panel_has_one_row_per_project,
     test_build_dashboard_has_banner_pies_and_table_only,

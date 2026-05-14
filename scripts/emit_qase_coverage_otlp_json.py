@@ -86,6 +86,7 @@ def main() -> None:
     d_tba: list[dict] = []
     d_manual: list[dict] = []
     d_cov: list[dict] = []
+    d_cov_target: list[dict] = []
 
     for code, s in stats_by_project.items():
         labels = {"project_code": code}
@@ -94,18 +95,22 @@ def main() -> None:
         d_tba.append(_dp_int(ts, s["to_be_automated"], labels))
         d_manual.append(_dp_int(ts, s["manual"], labels))
         d_cov.append(_dp_double(ts, s["coverage_pct"], labels))
+        d_cov_target.append(_dp_double(ts, s["target_coverage_pct"], labels))
 
     total = sum(s["total"] for s in stats_by_project.values())
     automated = sum(s["automated"] for s in stats_by_project.values())
     to_be = sum(s["to_be_automated"] for s in stats_by_project.values())
     manual = sum(s["manual"] for s in stats_by_project.values())
     cov_all = round(automated * 100 / total, 4) if total else 0.0
+    target_denom_all = automated + to_be
+    cov_target_all = round(automated * 100 / target_denom_all, 4) if target_denom_all else 0.0
     all_labels = {"project_code": "all"}
     d_total.append(_dp_int(ts, total, all_labels))
     d_auto.append(_dp_int(ts, automated, all_labels))
     d_tba.append(_dp_int(ts, to_be, all_labels))
     d_manual.append(_dp_int(ts, manual, all_labels))
     d_cov.append(_dp_double(ts, cov_all, all_labels))
+    d_cov_target.append(_dp_double(ts, cov_target_all, all_labels))
 
     metrics = [
         _gauge("qase_test_cases_total", "Qase test cases (total)", "1", d_total),
@@ -122,6 +127,12 @@ def main() -> None:
             "Automated / total * 100",
             "%",
             d_cov,
+        ),
+        _gauge(
+            "qase_automation_target_coverage_percent",
+            "Automated / (automated + to-be-automated) * 100",
+            "%",
+            d_cov_target,
         ),
     ]
 

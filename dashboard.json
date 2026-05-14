@@ -18,7 +18,7 @@
   },
   "snapshot": {
     "name": "Qase Automation Coverage Snapshot",
-    "timestamp": "2026-05-12 18:16 UTC",
+    "timestamp": "2026-05-14 11:18 UTC",
     "originalUrl": "",
     "expires": "0001-01-01T00:00:00Z",
     "external": false,
@@ -38,7 +38,7 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "# Qase Automation Coverage \u2014 IAO, AL & IAI\n\nSnapshot generated **2026-05-12 18:16 UTC** \u00b7 re-run `generate_dashboard.py` and re-import this dashboard to refresh."
+        "content": "# Qase Automation Coverage \u2014 IAO, AL & IAI\n\nSnapshot generated **2026-05-14 11:18 UTC** \u00b7 re-run `generate_dashboard.py` and re-import this dashboard to refresh."
       }
     },
     {
@@ -66,7 +66,8 @@
               "values": [
                 "Automated",
                 "To be automated",
-                "Manual"
+                "Manual",
+                "\u2605 TARGET COVERAGE \u2014 63.72% \u2605"
               ]
             },
             {
@@ -75,7 +76,8 @@
               "values": [
                 699,
                 398,
-                8085
+                8126,
+                0
               ]
             }
           ]
@@ -157,6 +159,25 @@
                   "mode": "fixed",
                   "fixedColor": "red"
                 }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "\u2605 TARGET COVERAGE \u2014 63.72% \u2605"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "orange"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "\u2605 TARGET COVERAGE \u2014 63.72% \u2605"
               }
             ]
           }
@@ -188,7 +209,8 @@
               "values": [
                 "Automated",
                 "To be automated",
-                "Manual"
+                "Manual",
+                "\u2605 TARGET COVERAGE \u2014 15.38% \u2605"
               ]
             },
             {
@@ -196,8 +218,9 @@
               "type": "number",
               "values": [
                 22,
-                120,
-                208
+                121,
+                208,
+                0
               ]
             }
           ]
@@ -279,6 +302,25 @@
                   "mode": "fixed",
                   "fixedColor": "red"
                 }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "\u2605 TARGET COVERAGE \u2014 15.38% \u2605"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "orange"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "\u2605 TARGET COVERAGE \u2014 15.38% \u2605"
               }
             ]
           }
@@ -310,7 +352,8 @@
               "values": [
                 "Automated",
                 "To be automated",
-                "Manual"
+                "Manual",
+                "\u2605 TARGET COVERAGE \u2014 56.12% \u2605"
               ]
             },
             {
@@ -319,7 +362,8 @@
               "values": [
                 133,
                 104,
-                7050
+                7850,
+                0
               ]
             }
           ]
@@ -401,6 +445,25 @@
                   "mode": "fixed",
                   "fixedColor": "red"
                 }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "\u2605 TARGET COVERAGE \u2014 56.12% \u2605"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "orange"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "\u2605 TARGET COVERAGE \u2014 56.12% \u2605"
               }
             ]
           }
@@ -432,7 +495,8 @@
               "values": [
                 "Automated",
                 "To be automated",
-                "Manual"
+                "Manual",
+                "\u2605 TARGET COVERAGE \u2014 57.82% \u2605"
               ]
             },
             {
@@ -440,8 +504,9 @@
               "type": "number",
               "values": [
                 854,
-                622,
-                15343
+                623,
+                16184,
+                0
               ]
             }
           ]
@@ -523,6 +588,25 @@
                   "mode": "fixed",
                   "fixedColor": "red"
                 }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "\u2605 TARGET COVERAGE \u2014 57.82% \u2605"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "orange"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "\u2605 TARGET COVERAGE \u2014 57.82% \u2605"
               }
             ]
           }
@@ -561,9 +645,9 @@
               "name": "Total",
               "type": "number",
               "values": [
-                9182,
-                350,
-                7287
+                9223,
+                351,
+                8087
               ]
             },
             {
@@ -580,7 +664,7 @@
               "type": "number",
               "values": [
                 398,
-                120,
+                121,
                 104
               ]
             },
@@ -588,18 +672,27 @@
               "name": "Manual",
               "type": "number",
               "values": [
-                8085,
+                8126,
                 208,
-                7050
+                7850
               ]
             },
             {
               "name": "Coverage %",
               "type": "number",
               "values": [
-                7.61,
-                6.29,
-                1.83
+                7.58,
+                6.27,
+                1.64
+              ]
+            },
+            {
+              "name": "Target coverage %",
+              "type": "number",
+              "values": [
+                63.72,
+                15.38,
+                56.12
               ]
             }
           ]
@@ -633,6 +726,18 @@
             "matcher": {
               "id": "byName",
               "options": "Coverage %"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Target coverage %"
             },
             "properties": [
               {

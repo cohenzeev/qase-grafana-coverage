@@ -51,12 +51,10 @@
   .qase-tile.to-be-automated .value { color: #f2cc0c; }
   .qase-tile.manual .value { color: #e02f44; }
   .qase-tile.total .value { color: #5794f2; }
-  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
-  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
-  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
-  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
-  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .qase-coverage-block { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 12px; }
   .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-formula { font-size: 11px; color: #6e7682; margin-top: 2px; }
   .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
   .qase-pie {
     width: 84px;
@@ -88,8 +86,8 @@
 <div class="qase-banner">
   <h1>Qase Automation Coverage — IAO, AL &amp; IAI</h1>
   <div class="meta">
-    Snapshot generated <b>2026-05-12 07:13 UTC</b> ·
-    Re-run <code>generate_dashboard.py</code> and re-import this dashboard to refresh.
+    Snapshot generated <b>2026-05-14 09:09 UTC</b> ·
+    Re-run <code>generate_preview_html.py</code> to refresh.
   </div>
 </div></div>
     <div><style>
@@ -104,12 +102,10 @@
   .qase-tile.to-be-automated .value { color: #f2cc0c; }
   .qase-tile.manual .value { color: #e02f44; }
   .qase-tile.total .value { color: #5794f2; }
-  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
-  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
-  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
-  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
-  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .qase-coverage-block { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 12px; }
   .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-formula { font-size: 11px; color: #6e7682; margin-top: 2px; }
   .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
   .qase-pie {
     width: 84px;
@@ -142,15 +138,28 @@
   <h2>[iS] Aura - oobe <span style="color:#8a929d;font-weight:400;font-size:14px;">(<a class="qase-link" href="https://app.qase.io/project/IAO" target="_blank">IAO</a>)</span></h2>
   <div class="sub">Automation status across all test cases</div>
   <div class="qase-grid">
-    <div class="qase-tile total"><div class="label">Total</div><div class="value">9,178</div></div>
+    <div class="qase-tile total"><div class="label">Total</div><div class="value">9,225</div></div>
     <div class="qase-tile automated"><div class="label">Automated</div><div class="value">699</div></div>
     <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">398</div></div>
-    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">8,081</div></div>
+    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">8,128</div></div>
   </div>
-  <div class="qase-coverage-label">Automation coverage (699 / 9,178)</div>
-  <div class="qase-coverage-wrap">
-    <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 7.62%, rgba(255,255,255,0.09) 7.62% 100%);"></div>
-    <div class="qase-pie-label" style="color:#e02f44;">7.62%</div>
+  <div class="qase-coverage-row">
+    <div class="qase-coverage-block">
+      <div class="qase-coverage-label">Coverage (699 / 9,225)</div>
+      <div class="qase-coverage-formula">automated / total</div>
+      <div class="qase-coverage-wrap">
+        <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 7.58%, rgba(255,255,255,0.09) 7.58% 100%);"></div>
+        <div class="qase-pie-label" style="color:#e02f44;">7.58%</div>
+      </div>
+    </div>
+    <div class="qase-coverage-block">
+      <div class="qase-coverage-label">Target coverage (699 / 1,097)</div>
+      <div class="qase-coverage-formula">automated / (automated + to-be-automated)</div>
+      <div class="qase-coverage-wrap">
+        <div class="qase-pie" style="background: conic-gradient(#f2cc0c 0% 63.72%, rgba(255,255,255,0.09) 63.72% 100%);"></div>
+        <div class="qase-pie-label" style="color:#f2cc0c;">63.72%</div>
+      </div>
+    </div>
   </div>
 </div></div>
     <div><style>
@@ -165,12 +174,10 @@
   .qase-tile.to-be-automated .value { color: #f2cc0c; }
   .qase-tile.manual .value { color: #e02f44; }
   .qase-tile.total .value { color: #5794f2; }
-  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
-  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
-  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
-  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
-  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .qase-coverage-block { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 12px; }
   .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-formula { font-size: 11px; color: #6e7682; margin-top: 2px; }
   .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
   .qase-pie {
     width: 84px;
@@ -203,15 +210,28 @@
   <h2>Aura - Laika <span style="color:#8a929d;font-weight:400;font-size:14px;">(<a class="qase-link" href="https://app.qase.io/project/AL" target="_blank">AL</a>)</span></h2>
   <div class="sub">Automation status across all test cases</div>
   <div class="qase-grid">
-    <div class="qase-tile total"><div class="label">Total</div><div class="value">359</div></div>
-    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">16</div></div>
-    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">123</div></div>
-    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">220</div></div>
+    <div class="qase-tile total"><div class="label">Total</div><div class="value">351</div></div>
+    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">22</div></div>
+    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">121</div></div>
+    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">208</div></div>
   </div>
-  <div class="qase-coverage-label">Automation coverage (16 / 359)</div>
-  <div class="qase-coverage-wrap">
-    <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 4.46%, rgba(255,255,255,0.09) 4.46% 100%);"></div>
-    <div class="qase-pie-label" style="color:#e02f44;">4.46%</div>
+  <div class="qase-coverage-row">
+    <div class="qase-coverage-block">
+      <div class="qase-coverage-label">Coverage (22 / 351)</div>
+      <div class="qase-coverage-formula">automated / total</div>
+      <div class="qase-coverage-wrap">
+        <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 6.27%, rgba(255,255,255,0.09) 6.27% 100%);"></div>
+        <div class="qase-pie-label" style="color:#e02f44;">6.27%</div>
+      </div>
+    </div>
+    <div class="qase-coverage-block">
+      <div class="qase-coverage-label">Target coverage (22 / 143)</div>
+      <div class="qase-coverage-formula">automated / (automated + to-be-automated)</div>
+      <div class="qase-coverage-wrap">
+        <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 15.38%, rgba(255,255,255,0.09) 15.38% 100%);"></div>
+        <div class="qase-pie-label" style="color:#e02f44;">15.38%</div>
+      </div>
+    </div>
   </div>
 </div></div>
     <div><style>
@@ -226,12 +246,10 @@
   .qase-tile.to-be-automated .value { color: #f2cc0c; }
   .qase-tile.manual .value { color: #e02f44; }
   .qase-tile.total .value { color: #5794f2; }
-  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
-  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
-  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
-  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
-  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .qase-coverage-block { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 12px; }
   .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-formula { font-size: 11px; color: #6e7682; margin-top: 2px; }
   .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
   .qase-pie {
     width: 84px;
@@ -264,15 +282,28 @@
   <h2>IAI <span style="color:#8a929d;font-weight:400;font-size:14px;">(<a class="qase-link" href="https://app.qase.io/project/IAI" target="_blank">IAI</a>)</span></h2>
   <div class="sub">Automation status across all test cases</div>
   <div class="qase-grid">
-    <div class="qase-tile total"><div class="label">Total</div><div class="value">5,943</div></div>
-    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">131</div></div>
-    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">98</div></div>
-    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">5,714</div></div>
+    <div class="qase-tile total"><div class="label">Total</div><div class="value">8,087</div></div>
+    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">133</div></div>
+    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">104</div></div>
+    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">7,850</div></div>
   </div>
-  <div class="qase-coverage-label">Automation coverage (131 / 5,943)</div>
-  <div class="qase-coverage-wrap">
-    <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 2.2%, rgba(255,255,255,0.09) 2.2% 100%);"></div>
-    <div class="qase-pie-label" style="color:#e02f44;">2.2%</div>
+  <div class="qase-coverage-row">
+    <div class="qase-coverage-block">
+      <div class="qase-coverage-label">Coverage (133 / 8,087)</div>
+      <div class="qase-coverage-formula">automated / total</div>
+      <div class="qase-coverage-wrap">
+        <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 1.64%, rgba(255,255,255,0.09) 1.64% 100%);"></div>
+        <div class="qase-pie-label" style="color:#e02f44;">1.64%</div>
+      </div>
+    </div>
+    <div class="qase-coverage-block">
+      <div class="qase-coverage-label">Target coverage (133 / 237)</div>
+      <div class="qase-coverage-formula">automated / (automated + to-be-automated)</div>
+      <div class="qase-coverage-wrap">
+        <div class="qase-pie" style="background: conic-gradient(#f2cc0c 0% 56.12%, rgba(255,255,255,0.09) 56.12% 100%);"></div>
+        <div class="qase-pie-label" style="color:#f2cc0c;">56.12%</div>
+      </div>
+    </div>
   </div>
 </div></div>
     <div class="full"><style>
@@ -287,12 +318,10 @@
   .qase-tile.to-be-automated .value { color: #f2cc0c; }
   .qase-tile.manual .value { color: #e02f44; }
   .qase-tile.total .value { color: #5794f2; }
-  .qase-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
-  .qase-bar { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #fff; font-weight: 600; font-size: 13px; }
-  .qase-bar.green  { background: linear-gradient(90deg, #56a64b, #37872d); }
-  .qase-bar.yellow { background: linear-gradient(90deg, #f2cc0c, #e0b400); color: #222; }
-  .qase-bar.red    { background: linear-gradient(90deg, #e02f44, #c4162a); }
+  .qase-coverage-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .qase-coverage-block { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 12px; }
   .qase-coverage-label { font-size: 12px; color: #8a929d; margin-bottom: 4px; }
+  .qase-coverage-formula { font-size: 11px; color: #6e7682; margin-top: 2px; }
   .qase-coverage-wrap { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
   .qase-pie {
     width: 84px;
@@ -325,15 +354,28 @@
   <h2>Combined</h2>
   <div class="sub">All selected projects together</div>
   <div class="qase-grid">
-    <div class="qase-tile total"><div class="label">Total</div><div class="value">15,480</div></div>
-    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">846</div></div>
-    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">619</div></div>
-    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">14,015</div></div>
+    <div class="qase-tile total"><div class="label">Total</div><div class="value">17,663</div></div>
+    <div class="qase-tile automated"><div class="label">Automated</div><div class="value">854</div></div>
+    <div class="qase-tile to-be-automated"><div class="label">To be automated</div><div class="value">623</div></div>
+    <div class="qase-tile manual"><div class="label">Manual</div><div class="value">16,186</div></div>
   </div>
-  <div class="qase-coverage-label">Combined coverage (846 / 15,480)</div>
-  <div class="qase-coverage-wrap">
-    <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 5.47%, rgba(255,255,255,0.09) 5.47% 100%);"></div>
-    <div class="qase-pie-label" style="color:#e02f44;">5.47%</div>
+  <div class="qase-coverage-row">
+    <div class="qase-coverage-block">
+      <div class="qase-coverage-label">Combined coverage (854 / 17,663)</div>
+      <div class="qase-coverage-formula">automated / total</div>
+      <div class="qase-coverage-wrap">
+        <div class="qase-pie" style="background: conic-gradient(#e02f44 0% 4.83%, rgba(255,255,255,0.09) 4.83% 100%);"></div>
+        <div class="qase-pie-label" style="color:#e02f44;">4.83%</div>
+      </div>
+    </div>
+    <div class="qase-coverage-block">
+      <div class="qase-coverage-label">Combined target coverage (854 / 1,477)</div>
+      <div class="qase-coverage-formula">automated / (automated + to-be-automated)</div>
+      <div class="qase-coverage-wrap">
+        <div class="qase-pie" style="background: conic-gradient(#f2cc0c 0% 57.82%, rgba(255,255,255,0.09) 57.82% 100%);"></div>
+        <div class="qase-pie-label" style="color:#f2cc0c;">57.82%</div>
+      </div>
+    </div>
   </div>
   <div style="margin-top:18px;">
     <table style="width:100%;border-collapse:collapse;font-family:-apple-system,system-ui,sans-serif;font-size:13px;">
@@ -344,8 +386,9 @@
         <th style="padding:6px 12px;text-align:right;">To be automated</th>
         <th style="padding:6px 12px;text-align:right;">Manual</th>
         <th style="padding:6px 12px;text-align:right;">Coverage</th>
+        <th style="padding:6px 12px;text-align:right;">Target coverage</th>
       </tr></thead>
-      <tbody><tr><td style='padding:6px 12px;'>IAO</td><td style='padding:6px 12px;text-align:right;'>9,178</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>699</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>398</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>8,081</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>7.62%</td></tr><tr><td style='padding:6px 12px;'>AL</td><td style='padding:6px 12px;text-align:right;'>359</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>16</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>123</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>220</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>4.46%</td></tr><tr><td style='padding:6px 12px;'>IAI</td><td style='padding:6px 12px;text-align:right;'>5,943</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>131</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>98</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>5,714</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>2.2%</td></tr></tbody>
+      <tbody><tr><td style='padding:6px 12px;'>IAO</td><td style='padding:6px 12px;text-align:right;'>9,225</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>699</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>398</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>8,128</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>7.58%</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>63.72%</td></tr><tr><td style='padding:6px 12px;'>AL</td><td style='padding:6px 12px;text-align:right;'>351</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>22</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>121</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>208</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>6.27%</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>15.38%</td></tr><tr><td style='padding:6px 12px;'>IAI</td><td style='padding:6px 12px;text-align:right;'>8,087</td><td style='padding:6px 12px;text-align:right;color:#56a64b;'>133</td><td style='padding:6px 12px;text-align:right;color:#f2cc0c;'>104</td><td style='padding:6px 12px;text-align:right;color:#e02f44;'>7,850</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>1.64%</td><td style='padding:6px 12px;text-align:right;font-weight:600;'>56.12%</td></tr></tbody>
     </table>
   </div>
 </div></div>

@@ -52,12 +52,15 @@ def fetch_project_stats(token: str, code: str) -> dict:
     to_be_automated = api_count(token, code, {"automation": "to-be-automated"})
     manual          = max(total - automated - to_be_automated, 0)
     coverage        = round(automated * 100 / total, 2) if total else 0.0
+    target_denom    = automated + to_be_automated
+    target_coverage = round(automated * 100 / target_denom, 2) if target_denom else 0.0
     return {
         "total": total,
         "automated": automated,
         "to_be_automated": to_be_automated,
         "manual": manual,
         "coverage_pct": coverage,
+        "target_coverage_pct": target_coverage,
     }
 
 
@@ -105,6 +108,7 @@ def stats_panel(panel_id: int, title: str, stats: dict, gridPos: dict) -> dict:
         {"name": "To be automated", "type": "number", "values": [stats["to_be_automated"]]},
         {"name": "Manual",          "type": "number", "values": [stats["manual"]]},
         {"name": "Coverage %",      "type": "number", "values": [stats["coverage_pct"]]},
+        {"name": "Target coverage %", "type": "number", "values": [stats["target_coverage_pct"]]},
     ])
     return {
         "id": panel_id,
@@ -136,17 +140,24 @@ def stats_panel(panel_id: int, title: str, stats: dict, gridPos: dict) -> dict:
                      {"id": "color", "value": {"mode": "fixed", "fixedColor": BLUE}},
                      {"id": "unit", "value": "percent"},
                  ]},
+                {"matcher": {"id": "byName", "options": "Target coverage %"},
+                 "properties": [
+                     {"id": "color", "value": {"mode": "fixed", "fixedColor": BLUE}},
+                     {"id": "unit", "value": "percent"},
+                 ]},
             ],
         },
     }
 
 
 def pie_panel(panel_id: int, title: str, stats: dict, gridPos: dict) -> dict:
+    target_pct = stats.get("target_coverage_pct", 0.0)
+    target_label = f"★ TARGET COVERAGE — {target_pct}% ★"
     frame = _frame([
         {"name": "status", "type": "string",
-         "values": ["Automated", "To be automated", "Manual"]},
+         "values": ["Automated", "To be automated", "Manual", target_label]},
         {"name": "count",  "type": "number",
-         "values": [stats["automated"], stats["to_be_automated"], stats["manual"]]},
+         "values": [stats["automated"], stats["to_be_automated"], stats["manual"], 0]},
     ])
     return {
         "id": panel_id,
@@ -177,6 +188,11 @@ def pie_panel(panel_id: int, title: str, stats: dict, gridPos: dict) -> dict:
                  "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": YELL}}]},
                 {"matcher": {"id": "byName", "options": "Manual"},
                  "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": RED}}]},
+                {"matcher": {"id": "byName", "options": target_label},
+                 "properties": [
+                     {"id": "color", "value": {"mode": "fixed", "fixedColor": "orange"}},
+                     {"id": "displayName", "value": target_label},
+                 ]},
             ],
         },
     }
@@ -189,8 +205,9 @@ def comparison_table_panel(panel_id: int, title: str, stats_by_project: dict, gr
         {"name": "Total",            "type": "number", "values": [stats_by_project[c]["total"]           for c in codes]},
         {"name": "Automated",        "type": "number", "values": [stats_by_project[c]["automated"]       for c in codes]},
         {"name": "To be automated",  "type": "number", "values": [stats_by_project[c]["to_be_automated"] for c in codes]},
-        {"name": "Manual",           "type": "number", "values": [stats_by_project[c]["manual"]          for c in codes]},
-        {"name": "Coverage %",       "type": "number", "values": [stats_by_project[c]["coverage_pct"]    for c in codes]},
+        {"name": "Manual",           "type": "number", "values": [stats_by_project[c]["manual"]              for c in codes]},
+        {"name": "Coverage %",       "type": "number", "values": [stats_by_project[c]["coverage_pct"]        for c in codes]},
+        {"name": "Target coverage %", "type": "number", "values": [stats_by_project[c]["target_coverage_pct"] for c in codes]},
     ])
     return {
         "id": panel_id,
@@ -208,6 +225,8 @@ def comparison_table_panel(panel_id: int, title: str, stats_by_project: dict, gr
                  "properties": [{"id": "custom.align", "value": "left"}]},
                 {"matcher": {"id": "byName", "options": "Coverage %"},
                  "properties": [{"id": "unit", "value": "percent"}]},
+                {"matcher": {"id": "byName", "options": "Target coverage %"},
+                 "properties": [{"id": "unit", "value": "percent"}]},
             ],
         },
     }
@@ -219,12 +238,15 @@ def combined_stats(stats_by_project: dict) -> dict:
     to_be = sum(s["to_be_automated"] for s in stats_by_project.values())
     manual = sum(s["manual"] for s in stats_by_project.values())
     pct = round(automated * 100 / total, 2) if total else 0.0
+    target_denom = automated + to_be
+    target_pct = round(automated * 100 / target_denom, 2) if target_denom else 0.0
     return {
         "total": total,
         "automated": automated,
         "to_be_automated": to_be,
         "manual": manual,
         "coverage_pct": pct,
+        "target_coverage_pct": target_pct,
     }
 
 
@@ -286,7 +308,8 @@ def main():
         s = fetch_project_stats(token, p["code"])
         print(f"  total={s['total']} automated={s['automated']} "
               f"to_be={s['to_be_automated']} manual={s['manual']} "
-              f"coverage={s['coverage_pct']}%")
+              f"coverage={s['coverage_pct']}% "
+              f"target_coverage={s['target_coverage_pct']}%")
         stats_by_project[p["code"]] = s
 
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
